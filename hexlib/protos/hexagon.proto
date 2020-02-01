@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package hexagon;
+
+
+message HexCube {
+    int64 X = 1; //
+    int64 Y = 2;
+    int64 Z = 3;
+    uint32 Diameter = 4;
+}
+
+message HexAxial {
+    int64 U = 1;
+    int64 V = 2;
+    string Type = 3;
+    string Direction = 5;
+}
+
+message Request {
+    repeated HexCube hc = 1;
+}
+
+message Response {
+    repeated HexAxial ha = 1;
+}
+
+service HexagonService {
+    rpc GetHexagons(Request) returns (Response);
+}
