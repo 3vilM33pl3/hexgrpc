@@ -9,9 +9,7 @@ using hexagon::HexCube;
 
 class Hexagon {
 public:
-    static HexAxial* Cube2Axial(const HexCube &hc) {
-        HexAxial ha;
-        ha.set_u(hc.x()), ha.set_v(hc.z());
-        return &ha;
+    static void Cube2Axial(const HexCube* hc, HexAxial* ha) {
+        ha->set_u(hc->x()), ha->set_v(hc->z());
     }
 };

@@ -12,7 +12,7 @@ Status HexagonService::GetHexagons(ServerContext *context,
 
     for(auto item: request->hc()) {
         auto ha = response->add_ha();
-        ha = Hexagon::Cube2Axial(item);
+        Hexagon::Cube2Axial(&item, ha);
     }
 
     return Status::OK ;
