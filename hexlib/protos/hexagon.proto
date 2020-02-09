@@ -3,28 +3,38 @@ syntax = "proto3";
 package hexagon;
 
 
-message HexCube {
+message Hex {
     int64 X = 1; //
     int64 Y = 2;
     int64 Z = 3;
-    uint32 Diameter = 4;
+    string Type = 4;
+    string Direction = 5;
 }
 
 message HexAxial {
     int64 U = 1;
     int64 V = 2;
     string Type = 3;
-    string Direction = 5;
+    string Direction = 4;
 }
 
-message Request {
-    repeated HexCube hc = 1;
+message ConversionRequest {
+    repeated Hex hc = 1;
 }
 
-message Response {
+message HexagonRingRequest {
+    Hex ha = 1;
+    int64 radius = 2;
+}
+
+message HexAxialResponse {
     repeated HexAxial ha = 1;
 }
 
+message HexCubeResponse {
+    repeated Hex hc = 1;
+}
+
 service HexagonService {
-    rpc GetHexagons(Request) returns (Response);
+    rpc GetHexagonRing(HexagonRingRequest) returns (HexCubeResponse);
 }

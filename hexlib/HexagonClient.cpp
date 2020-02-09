@@ -1,32 +1,27 @@
 #include <hexlib/HexagonClient.hpp>
-
-Status HexagonClient::Send(vector<HexAxial>& hexAxials) {
-    Request request;
-
-    if(HexCubes.size() > 0) {
-        for (auto item: HexCubes) {
-            auto hc = request.add_hc();
-            hc->set_x(item.x());
-            hc->set_y(item.y());
-            hc->set_z(item.z());
-        }
-
-        ClientContext context;
-        Response response;
-        auto status = stub_->GetHexagons(&context, request, &response);
-
-        for (auto item: response.ha()) {
-            hexAxials.push_back(item);
-        }
-        return status;
-    }
-
-    return Status(grpc::StatusCode::ABORTED, "Empty stack, nothing to send");
-}
-
-void HexagonClient::Add(const HexCube &hc)  {
-    HexCubes.push_back(hc);
-}
+#include <hexlib/HexagonLibrary.hpp>
 
 HexagonClient::HexagonClient() {}
+
+vector<Hexagon> HexagonClient::GetHexagonRing(const Hexagon* hex, const int64_t radius) {
+    HexagonRingRequest request;
+
+    request.mutable_ha()->CopyFrom(::HexagonLibrary::Convert2Proto(hex));
+    request.set_radius(radius);
+
+    ClientContext context;
+    HexCubeResponse response;
+
+    auto status = stub_->GetHexagonRing(&context, request, &response);
+    vector<Hexagon> result;
+    for(auto hexpb: response.hc()) {
+        result.push_back(Hexagon(hexpb.x(), hexpb.y(), hexpb.z()));
+    }
+
+    return result;
+}
+
+grpc_connectivity_state HexagonClient::GetConnectionStatus() {
+    return channel->GetState(false);
+}
 

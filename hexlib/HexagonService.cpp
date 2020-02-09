@@ -1,19 +1,19 @@
 #include <hexlib/HexagonService.hpp>
 #include <fmt/format.h>
-#include <hexlib/Hexagon.hpp>
+#include <hexlib/HexagonLibrary.hpp>
 
+Status HexagonService::GetHexagonRing(::grpc::ServerContext *context, const ::hexagon::HexagonRingRequest *request,
+                                      ::hexagon::HexCubeResponse *response) {
+    auto hexpb = request->ha();
+    auto result = HexagonLibrary::Ring(Hexagon(hexpb.x(), hexpb.y(), hexpb.z()), request->radius());
 
-void HexagonService::SayHello() {
-    fmt::print("Haai");
-}
-
-Status HexagonService::GetHexagons(ServerContext *context,
-        const Request *request, Response *response) {
-
-    for(auto item: request->hc()) {
-        auto ha = response->add_ha();
-        Hexagon::Cube2Axial(&item, ha);
+    google::protobuf::RepeatedPtrField<Hex> hexpbv;
+    for(auto hex : result) {
+        auto hexpb = response->mutable_hc()->Add();
+        hexpb->set_x(hex.q);
+        hexpb->set_y(hex.r);
+        hexpb->set_z(hex.s);
     }
 
-    return Status::OK ;
+    return Status::OK;
 }

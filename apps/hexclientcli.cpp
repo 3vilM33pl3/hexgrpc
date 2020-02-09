@@ -22,31 +22,37 @@ void StartClient(HexagonClient *hexagonClient) {
             "status",
             [&hexagonClient](ostream& out)
             {
-
+                switch (hexagonClient->GetConnectionStatus()) {
+                    case GRPC_CHANNEL_IDLE:
+                        out << "gRPC channel idle" << endl;
+                        break;
+                    case GRPC_CHANNEL_READY:
+                        out << "gRPC channel ready" << endl;
+                        break;
+                    case GRPC_CHANNEL_CONNECTING:
+                        out << "gRPC channel connecting" << endl;
+                        break;
+                    case GRPC_CHANNEL_TRANSIENT_FAILURE:
+                        out << "gRPC channel failure, recovering connection" << endl;
+                        break;
+                    case GRPC_CHANNEL_SHUTDOWN:
+                        out<< "gRPC channel shutdown after unrecoverable failure" << endl;
+                        break;
+                }
             },
-            "Connect to server" );
-    rootMenu -> Insert(
-            "hex", {"x y z"},
-            [&hexagonClient](ostream& out, int x, int y, int z)
+            "Connectionto server (channel) status" );
+    rootMenu->Insert(
+            "ring", {"x y z d"},
+            [&hexagonClient](ostream& out, int x, int y, int z, int r)
             {
-                out << "Adding [ " << x << " , " << y << " , " << z << " ]" << endl;
-                HexCube hc;
-                hc.set_x(x);
-                hc.set_y(y);
-                hc.set_z(z);
-
-                hexagonClient->Add(hc);
+                out << "Requesting ring for " << "[ " << x << " , " << y << " , " << z << " ] with radius " << r << endl;
+                auto result = hexagonClient->GetHexagonRing(new Hexagon(x, y, z), r);
+                for(auto hex: result) {
+                    cout << "x: " << hex.q << " y: " << hex.r << " z: " << hex.r << endl;
+                }
             },
-            "Add hexagon to stack" );
-    rootMenu -> Insert(
-            "send",
-            [&hexagonClient](ostream& out)
-            {
-                vector<HexAxial> vha;
-                hexagonClient->Send(vha);
-                Print(vha);
-            },
-            "Send hexagon stack");
+            "Request hexagons with center [x y z] and radius [d]"
+            );
 
     Cli cli( move(rootMenu) );
     // global exit action
