@@ -34,11 +34,11 @@ set(BOOST_ROOT C:/local/boost_1_69_0)
 #set(BOOST_LIBRARY_DIR C:/boost_1_55_0/libs)
 #set(Boost_NO_SYSTEM_PATHS ON)
 #set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_LIBS ON)
-set(CGAL_Boost_USE_STATIC_LIBS ON)
-set(Boost_USE_STATIC_LIBS        ON) # only find static libs
-set(Boost_USE_MULTITHREADED      ON)
-set(Boost_USE_STATIC_RUNTIME    OFF)
+#set(Boost_USE_STATIC_LIBS ON)
+#set(CGAL_Boost_USE_STATIC_LIBS ON)
+#set(Boost_USE_STATIC_LIBS        ON) # only find static libs
+#set(Boost_USE_MULTITHREADED      ON)
+#set(Boost_USE_STATIC_RUNTIME    OFF)
 #set(Boost_LIB_VERSION vc120)
 find_package(Boost REQUIRED COMPONENTS program_options)
 

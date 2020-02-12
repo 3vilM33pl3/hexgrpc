@@ -19,19 +19,15 @@ RUN apk update && \
         grpc \
         grpc-dev \
         boost-dev \
+        boost-program_options \
         libunwind \
         go \
         vim
 
+FROM phase_1 AS phase_2
 COPY . /src
 WORKDIR /src
-RUN cmake -DDOCKER_PHASE_1=TRUE -DDOCKER_PHASE_2=FALSE -DDOCKER_INSTALL_LIBS=TRUE .
-RUN make
-
-FROM phase_1 AS phase_2
-COPY /src/hexlib/libhex_library.so /src/
-WORKDIR /src
-RUN cmake -DDOCKER_PHASE_1=FALSE /src
+RUN cmake .
 RUN make
 
 FROM phase_2
