@@ -1,10 +1,4 @@
-//
-// Created by Olivier Van Acker on 24/02/2020.
-//
-
-#include "Test1.hpp"
 #include "gtest/gtest.h"
-
 
 // The fixture for testing class Foo.
 class FooTest : public ::testing::Test {
@@ -23,7 +17,7 @@ protected:
 
 // Tests that the Foo::Bar() method does Abc.
 TEST_F(FooTest, MethodBarDoesAbc) {
-EXPECT_EQ(true, true), 0);
+    EXPECT_EQ(true, true);
 }
 
 // Tests that Foo does Xyz.
