@@ -21,11 +21,12 @@ enable_testing()
 ################################
 # Add test cpp file
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -DGTEST_USE_OWN_TR1_TUPLE=1")
-add_executable(runUnitTests test1.cpp)
+add_executable(runUnitTests HexagonLibraryTest.cpp)
 
 target_include_directories(runUnitTests PRIVATE
         $<TARGET_PROPERTY:gtest,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:gtest_main,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>)
+        $<TARGET_PROPERTY:gtest_main,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+        ../include)
 
 
 # Link test executable against gtest & gtest_main

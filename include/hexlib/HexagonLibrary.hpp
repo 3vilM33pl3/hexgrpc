@@ -112,12 +112,4 @@ public:
         return Add(a, HexagonDirections[direction]);
     }
 
-    static hexagon::Hex Convert2Proto(const Hexagon* x) {
-        hexagon::Hex pbhex;
-        pbhex.set_x(x->q);
-        pbhex.set_y(x->r);
-        pbhex.set_z(x->s);
-        return pbhex;
-    }
-
 };
