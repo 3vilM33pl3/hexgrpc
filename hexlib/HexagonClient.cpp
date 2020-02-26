@@ -3,10 +3,18 @@
 
 HexagonClient::HexagonClient() {}
 
+hexagon::Hex HexagonClient::Convert2Proto(const Hexagon* x) {
+    hexagon::Hex pbhex;
+    pbhex.set_x(x->q);
+    pbhex.set_y(x->r);
+    pbhex.set_z(x->s);
+    return pbhex;
+}
+
 vector<Hexagon> HexagonClient::GetHexagonRing(const Hexagon* hex, const int64_t radius) {
     HexagonRingRequest request;
 
-    request.mutable_ha()->CopyFrom(::HexagonLibrary::Convert2Proto(hex));
+    request.mutable_ha()->CopyFrom(Convert2Proto(hex));
     request.set_radius(radius);
 
     ClientContext context;

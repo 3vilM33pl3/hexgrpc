@@ -32,4 +32,5 @@ private:
     unique_ptr<HexagonService::Stub> stub_;
     vector<Hex> HexCubes;
     shared_ptr<Channel> channel;
+    static hexagon::Hex Convert2Proto(const Hexagon* x);
 };
