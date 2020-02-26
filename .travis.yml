@@ -25,13 +25,11 @@ matrix:
             #- gcov-4.9
             - clang-3.7
             - valgrind
-            - protobuf
-            - protobuf-dev
-            - grpc
-            - grpc-dev
-            - boost-dev
-            - boost-program_options
-            - libunwind
+            - protobuf-compiler-grpc
+            - libprotobuf-dev
+            - libgrpc++1
+            - libgrpc++-dev
+            - libboost-all-dev
 
 before_install:
   # Combine global build options with OS/compiler-dependent options
