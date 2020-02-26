@@ -62,8 +62,7 @@ script:
   - cmake ${CMAKE_OPTIONS} -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_BUILD_TYPE=Coverage -DBUILD_TESTS=ON ..
   - make hexgrpc_server
   - make hexgrpc_client
-  - make runUnitTests
-  - ./tests/runUnitTests
+  - make test
   - ctest
 
 
