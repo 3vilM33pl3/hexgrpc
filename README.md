@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/3vilM33pl3/hexgrpc.svg?branch=master)](https://travis-ci.org/3vilM33pl3/hexgrpc)
+
+
 ## Usage
 
 1. Create gRPC channel
