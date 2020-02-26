@@ -1,7 +1,6 @@
 // Implementations of methods described here: https://www.redblobgames.com/grids/hexagons/
 #pragma once
 
-#include "hexagon.grpc.pb.h"
 #include <cmath>
 
 using namespace std;
