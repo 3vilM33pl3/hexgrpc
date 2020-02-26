@@ -12,7 +12,6 @@ project(hexgrpc
 # Let's ensure -std=c++xx instead of -std=g++xx
 #set(CMAKE_CXX_EXTENSIONS ON)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE INTERNAL "No dev warnings")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
