@@ -32,4 +32,4 @@ target_include_directories(runUnitTests PRIVATE
 # Link test executable against gtest & gtest_main
 target_link_libraries(runUnitTests gtest gtest_main)
 
-add_test(runUnitTests runUnitTests)
+add_test(test runUnitTests)
