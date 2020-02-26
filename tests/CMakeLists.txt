@@ -20,7 +20,7 @@ enable_testing()
 # Unit Tests
 ################################
 # Add test cpp file
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -DGTEST_USE_OWN_TR1_TUPLE=1")
+set(CMAKE_CXX_FLAGS "-DGTEST_USE_OWN_TR1_TUPLE=1")
 add_executable(runUnitTests HexagonLibraryTest.cpp)
 
 target_include_directories(runUnitTests PRIVATE
