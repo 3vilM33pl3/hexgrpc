@@ -63,8 +63,8 @@ script:
   - make hexgrpc_server
   - make hexgrpc_client
   - make runUnitTests
-  - ./tests/runUnitTests
+  - ctest
 
 
 after_success:
-  - codecov -t a0d95c22-38f0-483f-a0e2-ccb322853a2e -X gcov
+  - codecov -t a0d95c22-38f0-483f-a0e2-ccb322853a2e
