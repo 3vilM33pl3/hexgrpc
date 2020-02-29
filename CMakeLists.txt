@@ -10,7 +10,7 @@ project(hexgrpc
 #set(OPENSSL_NO_ASM TRUE)
 
 # Let's ensure -std=c++xx instead of -std=g++xx
-#set(CMAKE_CXX_EXTENSIONS ON)
+set(CMAKE_CXX_EXTENSIONS ON)
 
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE INTERNAL "No dev warnings")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -35,9 +35,8 @@ IF (WIN32)
     set(Boost_NO_SYSTEM_PATHS ON)
     set(Boost_USE_STATIC_LIBS        ON) # only find static libs
     set(Boost_LIB_VERSION vc120)
-ELSE()
-    find_package(Boost REQUIRED COMPONENTS program_options)
 ENDIF()
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 # Formatting library
 FetchContent_Declare(
