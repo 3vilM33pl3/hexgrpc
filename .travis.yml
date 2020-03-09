@@ -65,6 +65,13 @@ script:
   - make testrunner
   - ctest
 
+addons:
+  apt:
+    packages: lcov
 
 after_success:
+  # Create lcov report
+  - lcov --capture --directory . --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
+  - lcov --list coverage.info # debug info
   - codecov -t a0d95c22-38f0-483f-a0e2-ccb322853a2e

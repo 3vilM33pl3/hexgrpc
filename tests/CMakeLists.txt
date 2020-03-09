@@ -14,13 +14,12 @@ if(NOT googletest_POPULATED)
     add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
 
-enable_testing()
-
 ################################
 # Unit Tests
 ################################
 # Add test cpp file
 set(CMAKE_CXX_FLAGS "-DGTEST_USE_OWN_TR1_TUPLE=1")
+
 add_executable(testrunner HexagonLibraryTest.cpp)
 
 target_include_directories(testrunner PRIVATE
