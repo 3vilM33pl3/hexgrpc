@@ -63,7 +63,7 @@ script:
   - make hexgrpc_server
   - make hexgrpc_client
   - make testrunner
-  - ctest
+  - ./testrunner
 
 addons:
   apt:
