@@ -71,6 +71,7 @@ addons:
 
 after_success:
   # Create lcov report
+  - cd ${TRAVIS_BUILD_DIR}
   - lcov --capture --directory . --output-file coverage.info
   - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
   - lcov --list coverage.info # debug info
