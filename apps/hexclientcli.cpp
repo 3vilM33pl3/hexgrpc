@@ -48,7 +48,7 @@ void StartClient(HexagonClient *hexagonClient) {
                 out << "Requesting ring for " << "[ " << x << " , " << y << " , " << z << " ] with radius " << r << endl;
                 auto result = hexagonClient->GetHexagonRing(new Hexagon(x, y, z), r);
                 for(auto hex: result) {
-                    cout << "x: " << hex.q << " y: " << hex.r << " z: " << hex.r << endl;
+                    cout << "x: " << hex.Q << " y: " << hex.R << " z: " << hex.R << endl;
                 }
             },
             "Request hexagons with center [x y z] and radius [d]"
