@@ -7,19 +7,69 @@ using namespace std;
 
 struct Point
 {
-    double x;
+    double X;
     double y;
-    Point(double x_, double y_): x(x_), y(y_) {}
+    Point(double x_, double y_): X(x_), y(y_) {}
+    Point(): X(0), y(0) {}
+
+    Point operator/ (int64_t div) {
+        return Point(this->X / div, this->y / div);
+    }
+
+    Point operator/ (Point p) {
+        return Point(this->X / p.X, this->y / p.y);
+    }
+
+    Point operator+ (Point p) {
+        return Point(this->X + p.X, this->y + p.y);
+    }
+
+    Point operator- (Point p) {
+        return Point(this->X - p.X, this->y - p.y);
+    }
+
 };
 
+struct AxialCoordinates {
+    int32_t Q;
+    int32_t R;
+
+    AxialCoordinates(int32_t Q_, int32_t R_) {
+        Q = Q_;
+        R = R_;
+    }
+};
 
 struct Hexagon
 {
-    int q;
-    int r;
-    int s;
-    Hexagon(int q_, int r_, int s_): q(q_), r(r_), s(s_) {
-        if (q + r + s != 0) throw "q + r + s must be 0";
+    int Q;
+    int R;
+    int S;
+
+    Hexagon(AxialCoordinates AC) {
+        Q = AC.Q;
+        R = AC.R;
+        S = - AC.Q - AC.R;
+    }
+
+    Hexagon(int Q_, int R_, int S_): Q(Q_), R(R_), S(S_) {
+        if (Q + R + S != 0) throw "q + r + s must be 0";
+    }
+
+    Hexagon operator/ (int64_t div) {
+        return Hexagon(this->Q / div, this->R / div, this->S / div);
+    }
+
+    Hexagon operator/ (Hexagon hex) {
+        return Hexagon(this->Q / hex.Q, this->R / hex.R, this->S / hex.S);
+    }
+
+    Hexagon operator+(Hexagon hex) {
+        return Hexagon(this->Q + hex.Q, this->R + hex.R, this->S + hex.S);
+    }
+
+    Hexagon operator++() {
+        return Hexagon(this->Q + this->Q, this->R + this->R, this->S + this->S);
     }
 };
 
@@ -81,9 +131,9 @@ const vector<Hexagon> HexagonDirections = {
 
 class HexagonLibrary {
 public:
-    static vector<Hexagon> Ring(const Hexagon center, const int64_t radius) {
+    static vector<Hexagon> Ring(Hexagon center, const int64_t radius) {
         vector<Hexagon> results;
-        Hexagon hex = Add(center, Scale(HexagonDirections[4], radius));
+        Hexagon hex = center + Scale(HexagonDirections[4], radius);
 
         for(int i = 0; i < 6; i++) {
             for(int j = 0; j < radius; j++ ) {
@@ -95,12 +145,8 @@ public:
 
     }
 
-    static Hexagon Add(const Hexagon hexA, const Hexagon hexB) {
-        return Hexagon(hexA.q + hexB.q, hexA.r + hexB.r, hexA.s + hexB.s);
-    }
-
     static Hexagon Scale(Hexagon hex, int64_t radius) {
-        return Hexagon(hex.q * radius, hex.r * radius, hex.s * radius);
+        return Hexagon(hex.Q * radius, hex.R * radius, hex.S * radius);
     }
 
     static Hexagon Direction(int i) {
@@ -109,7 +155,7 @@ public:
     }
 
     static Hexagon Neighbor(Hexagon a, int direction) {
-        return Add(a, HexagonDirections[direction]);
+        return a + HexagonDirections[direction];
     }
 
 };

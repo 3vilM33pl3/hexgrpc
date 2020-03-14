@@ -5,9 +5,9 @@ HexagonClient::HexagonClient() {}
 
 hexagon::Hex HexagonClient::Convert2Proto(const Hexagon* x) {
     hexagon::Hex pbhex;
-    pbhex.set_x(x->q);
-    pbhex.set_y(x->r);
-    pbhex.set_z(x->s);
+    pbhex.set_x(x->Q);
+    pbhex.set_y(x->R);
+    pbhex.set_z(x->S);
     return pbhex;
 }
 
