@@ -30,6 +30,10 @@ WORKDIR /src
 RUN cmake .
 RUN make
 
-FROM phase_2
+FROM alpine:3.11
+RUN apk update && \
+    apk upgrade && \
+    apk --update add \
+        libstdc++
 COPY --from=phase_2 /src/apps/hexgrpc_server ./
 CMD ["./hexgrpc_server"]

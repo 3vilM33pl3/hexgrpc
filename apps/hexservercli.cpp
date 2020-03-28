@@ -23,10 +23,18 @@ void RunServer(const string ServerAddress) {
 
 int main(int ac, char** av) {
     string ServerAddress;
+    uint16_t ServerPort;
     po::options_description desc("Hexagon server options");
     desc.add_options()
             ("help", "help message")
-            ("address", po::value<string>(&ServerAddress)->default_value("0.0.0.0:50051"), "address to listen on [ip:port]");
+            ("address", po::value<string>(&ServerAddress)->default_value("0.0.0.0"), "address to listen on [ip]")
+            ("port", po::value<uint16_t>(&ServerPort)->default_value(50051), "port listening on [port], can also be set with PORT environment variable");
+
+    if(const char* port = getenv("PORT")) {
+        ServerAddress = ServerAddress + ":" + port;
+    } else {
+        ServerAddress = ServerAddress + ":" + to_string(ServerPort);
+    }
 
     po::variables_map vm;
     po::store(po::parse_command_line(ac, av, desc), vm);
