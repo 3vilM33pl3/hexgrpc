@@ -20,14 +20,12 @@ RUN apk update && \
         grpc-dev \
         boost-dev \
         boost-program_options \
-        libunwind \
-        go \
-        vim
+        libunwind
 
 FROM phase_1 AS phase_2
 COPY . /src
 WORKDIR /src
-RUN cmake .
+RUN cmake --build . -- -j 3
 RUN make
 
 FROM alpine:3.11
