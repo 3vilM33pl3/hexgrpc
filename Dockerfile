@@ -25,7 +25,7 @@ RUN apk update && \
 FROM phase_1 AS phase_2
 COPY . /src
 WORKDIR /src
-RUN cmake --build . -- -j 3
+RUN cmake --parallel 3 .
 RUN make
 
 FROM alpine:3.11
