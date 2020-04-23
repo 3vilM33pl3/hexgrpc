@@ -20,5 +20,5 @@ jobs:
           tag: v0.1.0
           registry: gcr.io
           dockerfile: Dockerfile.base
-          username: ${{ secrets.SA_EMAIL }}
+          username: _json_key
           password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
