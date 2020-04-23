@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Install Dependencies (Linux)
-        run: sudo apt-get install ninja-build libboost-dev
+        run: sudo apt-get install ninja-build libboost-all-dev
       - name: Checkout Sources
         uses: actions/checkout@v1
       - name: Setup CMake
