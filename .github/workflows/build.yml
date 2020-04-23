@@ -1,4 +1,4 @@
-name: Build and Deploy to Cloud Run
+name: Build and Upload Artifacts
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
         with:
           name: hexagon_library
           path: hexlib/libhex_library.so
-      - name: Upload Unsecure Hexagon Library
+      - name: Upload Hexagon Unsecure Library
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_unsecure_library
