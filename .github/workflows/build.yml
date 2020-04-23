@@ -27,8 +27,6 @@ jobs:
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
           set BOOST_ROOT=%BOOST_ROOT_1_69_0%
-          $powershell
-          $env:BOOST_ROOT=$env:BOOST_ROOT_1_69_0
           cmake $GITHUB_WORKSPACE -GNinja
         shell: bash
         if: matrix.os == 'windows-latest'
