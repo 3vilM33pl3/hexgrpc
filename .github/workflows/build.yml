@@ -5,12 +5,6 @@ on:
     branches:
       - master
 
-# Environment variables available to all jobs and steps in this workflow
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  RUN_REGION: us-west3
-  SERVICE_NAME: hexcloud
-
 jobs:
   build:
     name: Build
@@ -34,10 +28,10 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_library
-          path: hexlib/libhex_library.so
+          path: ${{ runner.workspace }}/build/hexlib/libhex_library.so
       - name: Upload Hexagon Unsecure Library
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_unsecure_library
-          path: hexlib/libhex_unsecure_library.so
+          path: ${{ runner.workspace }}/build/hexlib/libhex_unsecure_library.so
 
