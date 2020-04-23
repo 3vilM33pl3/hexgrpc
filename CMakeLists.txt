@@ -7,7 +7,7 @@ project(hexgrpc
         DESCRIPTION "Hexagon server"
         )
 
-#set(OPENSSL_NO_ASM TRUE)
+set(OPENSSL_NO_ASM TRUE)
 
 # Let's ensure -std=c++xx instead of -std=g++xx
 set(CMAKE_CXX_EXTENSIONS ON)
