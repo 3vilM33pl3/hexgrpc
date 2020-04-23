@@ -13,12 +13,12 @@ env:
 
 jobs:
   build:
-    name: Setup, Build, and Deploy
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
       - name: Install Dependencies (Linux)
-        run: sudo apt-get install ninja-build
+        run: sudo apt-get install ninja-build libboost-dev
       - name: Checkout Sources
         uses: actions/checkout@v1
       - name: Setup CMake
