@@ -7,6 +7,7 @@ get_filename_component(PROTO_PATH "${PROTO_FILE}" PATH)
 # Libraries
 set(PROTOBUF_LIBRARY libprotobuf)
 set(GRPC_GRPCPP_UNSECURE_LIBRARY grpc++_unsecure)
+set(GRPC_GRPCPP_LIBRARY grpc++)
 
 # Tools
 set(PROTOC_EXECUTABLE $<TARGET_FILE:protoc>)
@@ -31,13 +32,25 @@ add_custom_command(
 
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
-add_library(hex_library STATIC HexagonService.cpp HexagonClient.cpp ${PROTOBUF_SOURCE} ${GRPC_SOURCE})
+add_library(hex_unsecure_library SHARED HexagonService.cpp HexagonClient.cpp ${PROTOBUF_SOURCE} ${GRPC_SOURCE})
+target_compile_features(hex_unsecure_library PRIVATE cxx_std_17)
+
+target_include_directories(hex_unsecure_library PUBLIC ../include)
+target_include_directories(hex_unsecure_library PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+target_link_libraries(hex_unsecure_library
+        ${GRPC_GRPCPP_UNSECURE_LIBRARY}
+        ${PROTOBUF_LIBRARY}
+        fmt::fmt)
+
+install(TARGETS hex_unsecure_library LIBRARY)
+
+add_library(hex_library SHARED HexagonService.cpp HexagonClient.cpp ${PROTOBUF_SOURCE} ${GRPC_SOURCE})
 target_compile_features(hex_library PRIVATE cxx_std_17)
 
 target_include_directories(hex_library PUBLIC ../include)
 target_include_directories(hex_library PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(hex_library
-        ${GRPC_GRPCPP_UNSECURE_LIBRARY}
+        ${GRPC_GRPCPP_LIBRARY}
         ${PROTOBUF_LIBRARY}
         fmt::fmt)
 

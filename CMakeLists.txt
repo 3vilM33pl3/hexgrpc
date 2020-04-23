@@ -22,8 +22,6 @@ else()
     message(STATUS "Doxygen not found, not building docs")
 endif()
 
-
-
 include(FetchContent)
 
 set(Boost_DEBUG FALSE)
@@ -60,7 +58,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(cli)
 
 add_subdirectory(hexlib)
-add_subdirectory(apps)
+#add_subdirectory(apps)
 
-enable_testing()
-add_subdirectory(tests)
+install(TARGETS grpc grpc++ grpc++_unsecure grpc_cpp_plugin LIBRARY)
