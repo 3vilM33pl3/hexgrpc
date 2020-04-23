@@ -1,5 +1,21 @@
 ![Build and Deploy to Cloud Run](https://github.com/3vilM33pl3/hexgrpc/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg?branch=master)
 
+## Build & Run
+1. Build base image
+    ```bash
+    docker build -f Dockerfile.base -t gcr.io/robot-motel/hexbase:v0.1.0 .
+   ```
+
+2. Build (small) application image
+    ```bash
+    docker build -t hexagon:1.0 .
+   ```
+
+3. Run container
+   ```bash
+   docker run -p 8080:8080 hexagon:1.0
+   ```
+
 ## Usage
 
 1. Create gRPC channel
@@ -62,5 +78,49 @@ switch (hexagonClient->GetConnectionStatus()) {
         break;
 }
 ```
+## Push Image
+1. Login to service account:
+```
+gcloud auth activate-service-account github-deployer@robot-motel.iam.gserviceaccount.com --key-file=robot-motel-b6b89404bd6e.json
+```
+
+2. Docker login:
+```bash
+docker-credential-gcr configure-docker
+gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+docker-credential-gcr gcr-login
+```
+
+
+
+FROM alpine:3.11
+
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/libprotobuf-lite.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/libprotobuf.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/libprotoc.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/protobuf-lite.pc /usr/lib/
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/protobuf.pc /usr/lib/
+
+COPY --from=build /src/_deps/grpc-build/libaddress_sorting.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgpr.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc++.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc++_alts.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc++_error_details.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc++_reflection.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc++_unsecure.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc_cronet.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc_plugin_support.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpc_unsecure.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libgrpcpp_channelz.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libupb.a /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libs/opt/pkgconfig/ /usr/lib/
+COPY --from=build /src/_deps/grpc-build/libs/opt/pkgconfig/ /opt/pkgconfig/
+
+COPY --from=build /src/_deps/grpc-build/third_party/protobuf/protoc /usr/bin/
+COPY --from=build /src/_deps/grpc-build/grpc_cpp_plugin /usr/bin/
+
+COPY --from=build /src/_deps/grpc-src/third_party/protobuf/src/google/ /usr/include/google/
+COPY --from=build /src/_deps/grpc-src/include/ /usr/include/
 
 
