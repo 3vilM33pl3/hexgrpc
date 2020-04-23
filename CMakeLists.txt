@@ -29,7 +29,7 @@ set(BUILD_TESTING OFF)
 set(Boost_USE_MULTITHREADED ON)
 
 IF (WIN32)
-    set(BOOST_ROOT BOOST_ROOT_1_69_0)
+    set(BOOST_ROOT  $ENV{BOOST_ROOT_1_69_0})
 #    set(BOOST_ROOT C:/local/boost_1_69_0)
     set(Boost_NO_SYSTEM_PATHS ON)
     set(Boost_USE_STATIC_LIBS        ON) # only find static libs
