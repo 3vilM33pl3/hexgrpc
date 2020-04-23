@@ -30,4 +30,14 @@ jobs:
       - name: Build
         run: cmake --build .
         working-directory: ${{ runner.workspace }}/build
+      - name: Upload Hexagon Library
+        uses: actions/upload-artifact@v1
+        with:
+          name: hexagon_library
+          path: hexlib/libhex_library.so
+      - name: Upload Unsecure Hexagon Library
+        uses: actions/upload-artifact@v1
+        with:
+          name: hexagon_unsecure_library
+          path: hexlib/libhex_unsecure_library.so
 
