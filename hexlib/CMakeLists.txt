@@ -10,8 +10,8 @@ set(GRPC_GRPCPP_UNSECURE_LIBRARY grpc++_unsecure)
 set(GRPC_GRPCPP_LIBRARY grpc++)
 
 # Tools
-set(PROTOC_EXECUTABLE $<TARGET_FILE:protoc>)
-set(GRPC_CPP_PLUGIN_EXECUTABLE $<TARGET_FILE:grpc_cpp_plugin>)
+set(PROTOC_EXECUTABLE protoc)
+set(GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
 
 
 # Generate sources
