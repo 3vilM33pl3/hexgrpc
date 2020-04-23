@@ -1,5 +1,4 @@
-![Build and Deploy to Cloud Run](https://github.com/3vilM33pl3/hexgrpc/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg?branch=master)
-
+![Build and Upload Artifacts](https://github.com/3vilM33pl3/hexgrpc/workflows/Build%20and%20Upload%20Artifacts/badge.svg)
 ## Build & Run
 1. Build base image
     ```bash
