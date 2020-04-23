@@ -1,0 +1,25 @@
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+on:
+  push:
+    tags:
+      - base_v*
+jobs:
+  setup-build-deploy:
+    name: Setup, Build, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1.0
+          name: Check out code
+
+            - uses: mr-smithers-excellent/docker-build-push@v3
+              name: Build & push Docker base image
+              with:
+                image: gcr.io/robot-motel/hexbase
+                tag: v0.1.0
+                registry: gcr.io
+                dockerfile: Dockerfile.base
+                username: ${{ secrets.SA_EMAIL }}
+                password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
