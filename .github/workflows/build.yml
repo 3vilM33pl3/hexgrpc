@@ -19,7 +19,6 @@ jobs:
       - name: Install Dependencies (Windows)
         run: |
           choco install ninja
-          vcpkg install boost-program-options
         if: matrix.os == 'windows-latest'
       - name: Checkout Sources
         uses: actions/checkout@v1
@@ -27,6 +26,9 @@ jobs:
         run: |
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
+          set BOOST_ROOT=%BOOST_ROOT_1_69_0%
+          $powershell
+          $env:BOOST_ROOT=$env:BOOST_ROOT_1_69_0
           cmake $GITHUB_WORKSPACE -GNinja
         shell: bash
       - name: Build
