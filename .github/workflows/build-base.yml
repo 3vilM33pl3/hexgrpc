@@ -19,6 +19,6 @@ jobs:
           image: gcr.io/robot-motel/hexbase
           tag: v0.1.0
           registry: gcr.io
-          dockerfile: Dockerfile.base
+          dockerfile: package
           username: _json_key
           password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}

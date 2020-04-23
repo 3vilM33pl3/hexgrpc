@@ -1,39 +1,33 @@
-FROM alpine:3.11 AS phase_1
+FROM alpine:3.11
 
-RUN apk update && \
-    apk upgrade && \
-    apk --update add \
-        curl \
+RUN apk upgrade && \
+    apk --update --no-cache add \
         gcc \
         g++ \
         build-base \
         autoconf \
         automake \
         libtool \
-        git \
         cmake \
-        bash \
         libstdc++ \
-        protobuf \
-        protobuf-dev \
-        grpc \
-        grpc-dev \
+        git \
         boost-dev \
-        libunwind \
-        go \
-        vim
+        boost-program_options \
+        bash \
+        vim \
+        protobuf-dev \
+        openssl-dev \
+        zlib-dev \
+        libunwind
 
 COPY . /src
 WORKDIR /src
-RUN cmake -DDOCKER_PHASE_1=TRUE -DDOCKER_PHASE_2=FALSE -DDOCKER_INSTALL_LIBS=TRUE .
-RUN make
+RUN cmake . -DgRPC_INSTALL=ON                \
+                  -DCMAKE_BUILD_TYPE=Release       \
+                  -DgRPC_PROTOBUF_PROVIDER=package \
+                  -DgRPC_SSL_PROVIDER=package      \
+                  -DgRPC_ZLIB_PROVIDER=package
+RUN make -j16
+RUN make install
 
-FROM phase_1 AS phase_2
-COPY . /src
-WORKDIR /src
-RUN cmake -DDOCKER_PHASE_1=FALSE /src
-RUN make
 
-FROM phase_2
-COPY --from=phase_2 /src/hexgrpc_server ./
-CMD ["./hexgrpc_server"]
