@@ -31,6 +31,14 @@ jobs:
           $env:BOOST_ROOT=$env:BOOST_ROOT_1_69_0
           cmake $GITHUB_WORKSPACE -GNinja
         shell: bash
+        if: matrix.os == 'windows-latest'
+      - name: Setup CMake
+        run: |
+          mkdir "${{ runner.workspace }}/build"
+          cd "${{ runner.workspace }}/build"
+          cmake $GITHUB_WORKSPACE -GNinja
+        shell: bash
+        if: matrix.os == 'ubuntu-latest'
       - name: Build
         run: cmake --build .
         working-directory: ${{ runner.workspace }}/build
