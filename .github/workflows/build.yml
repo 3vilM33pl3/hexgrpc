@@ -32,14 +32,28 @@ jobs:
       - name: Build
         run: cmake --build .
         working-directory: ${{ runner.workspace }}/build
-      - name: Upload Hexagon Library
+      - name: Upload Hexagon Library (Linux)
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_library
-          path: ${{ runner.workspace }}/build/hexlib/libhex_library.dll
-      - name: Upload Hexagon Unsecure Library
+          path: ${{ runner.workspace }}/build/hexlib/libhex_library.so
+        if: matrix.os == 'ubuntu-latest'
+      - name: Upload Hexagon Unsecure Library (Linux)
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_unsecure_library
-          path: ${{ runner.workspace }}/build/hexlib/libhex_unsecure_library.dll
+          path: ${{ runner.workspace }}/build/hexlib/libhex_unsecure_library.so
+        if: matrix.os == 'ubuntu-latest'
+      - name: Upload Hexagon Library (Windows)
+        uses: actions/upload-artifact@v1
+        with:
+          name: hexagon_library
+          path: ${{ runner.workspace }}/build/hexlib/Debug/hex_library.dll
+        if: matrix.os == 'windows-latest'
+      - name: Upload Hexagon Unsecure Library (Windows)
+        uses: actions/upload-artifact@v1
+        with:
+          name: hexagon_unsecure_library
+            path: ${{ runner.workspace }}/build/hexlib/hex_unsecure_library.dll
+        if: matrix.os == 'windows-latest'
 

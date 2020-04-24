@@ -24,7 +24,7 @@ endif()
 
 include(FetchContent)
 
-set(Boost_DEBUG ON)
+set(Boost_DEBUG OFF)
 set(BUILD_TESTING OFF)
 set(Boost_USE_MULTITHREADED ON)
 
