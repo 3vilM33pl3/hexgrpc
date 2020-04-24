@@ -24,7 +24,7 @@ endif()
 
 include(FetchContent)
 
-set(Boost_DEBUG FALSE)
+set(Boost_DEBUG ON)
 set(BUILD_TESTING OFF)
 set(Boost_USE_MULTITHREADED ON)
 
@@ -35,6 +35,7 @@ IF (WIN32)
     set(Boost_NO_SYSTEM_PATHS ON)
     set(Boost_USE_STATIC_LIBS        ON) # only find static libs
     set(Boost_LIB_VERSION vc141)
+    set(Boost_ARCHITECTURE -x64)
 ENDIF()
 find_package(Boost REQUIRED COMPONENTS program_options)
 #find_package(Boost COMPONENTS program_options)
