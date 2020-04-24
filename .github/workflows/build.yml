@@ -29,7 +29,8 @@ jobs:
           ls $BOOST_ROOT_1_69_0/lib
           ls $BOOST_ROOT_1_69_0
           cd "${{ runner.workspace }}/build"
-          cmake $GITHUB_WORKSPACE -GNinja
+          cmake $GITHUB_WORKSPACE
+#          cmake $GITHUB_WORKSPACE -GNinja
         shell: bash
       - name: Build
         run: cmake --build .
