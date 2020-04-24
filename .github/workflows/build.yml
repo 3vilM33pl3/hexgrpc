@@ -54,6 +54,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_unsecure_library
-            path: ${{ runner.workspace }}/build/hexlib/hex_unsecure_library.dll
+          path: ${{ runner.workspace }}/build/hexlib/hex_unsecure_library.dll
         if: matrix.os == 'windows-latest'
 
