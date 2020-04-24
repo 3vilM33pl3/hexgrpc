@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
-          cmake $GITHUB_WORKSPACE
+          cmake $GITHUB_WORKSPACE -DBOOST_ROOT=C:/hostedtoolcache/windows/Boost/1.69.0 -DCMAKE_BUILD_TYPE=Release -DgRPC_BUILD_TESTS=OFF
         shell: bash
         if: matrix.os == 'windows-latest'
       - name: Build
@@ -52,12 +52,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_library
-          path: ${{ runner.workspace }}/build/hexlib/Debug/hex_library.dll
+          path: ${{ runner.workspace }}/build/hexlib/Release/hex_library.dll
         if: matrix.os == 'windows-latest'
       - name: Upload Hexagon Unsecure Library (Windows)
         uses: actions/upload-artifact@v1
         with:
           name: hexagon_unsecure_library
-          path: ${{ runner.workspace }}/build/hexlib/hex_unsecure_library.dll
+          path: ${{ runner.workspace }}/build/hexlib/Release/hex_unsecure_library.dll
         if: matrix.os == 'windows-latest'
 
