@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
-          cmake $GITHUB_WORKSPACE -DBOOST_ROOT=C:/hostedtoolcache/windows/Boost/1.69.0 -DgRPC_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" -DMSVC_TOOLSET_VERSION=140 .
+          cmake $GITHUB_WORKSPACE -GNinja -DBOOST_ROOT=C:/hostedtoolcache/windows/Boost/1.69.0 -DgRPC_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" -DMSVC_TOOLSET_VERSION=140 .
         shell: bash
         if: matrix.os == 'windows-latest'
       - name: Build
