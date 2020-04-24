@@ -17,11 +17,6 @@ jobs:
       - name: Install Dependencies (Linux)
         run: sudo apt-get install ninja-build libboost-all-dev
         if: matrix.os == 'ubuntu-latest'
-      - name: Install Dependencies (Windows)
-        run: |
-          choco install ninja
-          ls C:/hostedtoolcache/windows/Boost/1.69.0/lib
-        if: matrix.os == 'windows-latest'
       - name: Checkout Sources
         uses: actions/checkout@v1
       - name: Setup CMake
@@ -30,6 +25,14 @@ jobs:
           cd "${{ runner.workspace }}/build"
           cmake $GITHUB_WORKSPACE -GNinja
         shell: bash
+        if: matrix.os == 'ubuntu-latest'
+      - name: Setup CMake
+        run: |
+          mkdir "${{ runner.workspace }}/build"
+          cd "${{ runner.workspace }}/build"
+          cmake $GITHUB_WORKSPACE
+        shell: bash
+        if: matrix.os == 'windows-latest'
       - name: Build
         run: cmake --build .
         working-directory: ${{ runner.workspace }}/build
