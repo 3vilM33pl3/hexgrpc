@@ -36,8 +36,8 @@ IF (WIN32)
     set(Boost_USE_STATIC_LIBS        ON) # only find static libs
 #    set(Boost_LIB_VERSION vc120)
 ENDIF()
-#find_package(Boost REQUIRED COMPONENTS program_options)
-find_package(Boost COMPONENTS program_options)
+find_package(Boost REQUIRED COMPONENTS program_options)
+#find_package(Boost COMPONENTS program_options)
 
 # Formatting library
 FetchContent_Declare(
