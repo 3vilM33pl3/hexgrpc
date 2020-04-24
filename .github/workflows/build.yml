@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
-          ls C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/
+          ls "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/"
           cmake $GITHUB_WORKSPACE -GNinja -DBOOST_ROOT=C:/hostedtoolcache/windows/Boost/1.69.0 -DgRPC_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\bin\Hostx64\x64\cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" -DMSVC_TOOLSET_VERSION=140 .
         shell: bash
         if: matrix.os == 'windows-latest'
