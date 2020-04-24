@@ -17,6 +17,9 @@ jobs:
       - name: Install Dependencies (Linux)
         run: sudo apt-get install ninja-build libboost-all-dev
         if: matrix.os == 'ubuntu-latest'
+      - name: Install Dependencies (Windows)
+        run: choco install ninja
+        if: matrix.os == 'windows-latest'
       - name: Checkout Sources
         uses: actions/checkout@v1
       - name: Setup CMake
