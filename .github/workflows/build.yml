@@ -27,7 +27,8 @@ jobs:
         run: |
           mkdir "${{ runner.workspace }}/build"
           cd "${{ runner.workspace }}/build"
-          cmake $GITHUB_WORKSPACE -GNinja -DBoost_ARCHITECTURE=-x64
+          ls -l $BOOST_ROOT_1_69_0/lib/
+          cmake $GITHUB_WORKSPACE -GNinja -DBoost_ARCHITECTURE=x64
         shell: bash
       - name: Build
         run: cmake --build .
